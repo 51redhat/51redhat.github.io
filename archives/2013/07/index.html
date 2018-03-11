@@ -1,0 +1,147 @@
+<!DOCTYPE html>head
+	meta(charset="utf-8")
+	meta(http-equiv="X-UA-Compatible" content="IE=edge, chrome=1")
+	meta(name="viewport" content="width=device-width, initial-scale=1")
+	-
+		var pageDescription = page.title || config.description || '';
+		if (page.tags && page.tags.length) {
+			var tagsString = page.tags.map(function(val) {return val.name}).join(',');
+		}
+		var pageKeywords = page.keywords || tagsString || '';
+	meta(name="description" content= pageDescription)
+	meta(name="author" content= config.author)
+	meta(name="keywords" content= pageKeywords)
+	meta(name="copyright" content= _p('copyright.liscense_type'))
+	//- 确定页面title栏的内容
+	title
+		if is_post()
+			| #{titlecase(page.title)}
+		if is_archive()
+			| Archives
+		if is_tag()
+			| Tags
+		if is_category()
+			| Categories
+		if is_home()
+			| #{titlecase(config.title)}
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+		script(src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js")
+		script(src="https://cdn.bootcss.com/respond/1.4.2/respond.min.js")
+	<![endif]-->
+	//- 设置网址的图标，有hexo的helper可以实现
+	link(rel="icon" href= theme.favicon)
+	link(rel='stylesheet' href="/compass/stylesheets/font-awesome.min.css")
+	
+	//- 判断是否使用Algolia Search
+	if theme.algolia_on
+		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.0.0/dist/instantsearch.min.css">
+	//- 用来传给脚本主题配置文件里头的值
+	include from-config.pug	
+
+	//- 导入自定义的样式表
+	link(rel="stylesheet" href="/compass/stylesheets/screen.css")
+
+<body><div id="body-inner-wrapper">header#page-header
+	//- include nav.pug
+	| !{partial('includes/nav', null, {cache: true})}
+	//- banner-wrapper来放背景图片
+	#banner-wrapper
+		//- banner-pagetype-dependent-info 垂直居中，水平左40%显示
+		#banner-pagetype-dependent-info
+			//- 所有页面的大标题，都用#post-title表示
+			if is_post()
+				//- 博文标题，创建时间
+				- var pageTitle = page.title.length > 40 ? page.title.slice(0, 40) + '...' : page.title
+				h1#post-title= titlecase(pageTitle) || _p('page_title')
+				span#post-description #[i.fa.fa-calendar(aria-hidden="true")] #{page.date.format(config.date_format)}
+				//- 博文字数&时间
+				include ../analysis/countWordsAndTime.pug
+				span#word-count= _p('word_count', sum)
+				span#time-count= _p('time_count', time)
+			else if is_tag()
+				h1#post-title= (page.tag !== 'tagsHomePage' ? page.tag : _p('header_tag'))
+			else if is_category()
+				h1#post-title= (page.category!== 'categoriesHomePage' ? page.category : _p('header_category'))
+			else if is_archive()
+				if (page.year)
+					h1#post-title= page.year + (page.month ? _p('year') + page.month + _p('month') : "")
+				else
+					h1#post-title= _p('header_archive')
+
+			else
+				//- 即home page的情况：博客名字，博客描述
+				h1#post-title= titlecase(config.title)
+				span#post-description= titlecase(config.description)
+	
+	//- 以下是博文里头的3个可点击的icon btn
+	//- to-Top btn
+	a(title= _p('toTop_tooltip')): i#to-Top.fa.fa-arrow-up(aria-hidden="true")
+	if is_post()
+		//- toggle-on btn
+		a(title= _p('toggle_on_tooltip')): i#toggle-on-Toc.fa.fa-toggle-on(aria-hidden="true")
+		//- toggle-off btn
+		a(title= _p('toggle_off_tooltip')): i#toggle-off-Toc.fa.fa-toggle-off(aria-hidden="true")
+
+	
+	
+- var tempYear = ''
+- var tempMonth = ''
+each value in page.posts.data
+	- var year = date(value.date, 'YYYY')
+	- var month = date(value.date, "MM")
+	//- 这里的名字起的不好，.post-group并不是个group，只是一个一个的博文。	
+	.post-group-item
+		if month !== tempMonth
+			- tempMonth = month
+			if year !== tempYear
+				- tempYear = year
+
+			if is_archive()
+				h2.post-group-title
+					a(href= config.root + 'archives/' + tempYear + '/' + tempMonth)= tempYear + _p('year') + tempMonth + _p('month')
+		
+		.post-group-meta-wrapper
+			section.post-group-item-meta
+				span.post-group-item-date #{value.date.format('MM-DD')} 
+				- var pageTitle = value.title.length > 40 ? value.title.slice(0, 40) + '...' : value.title 
+				a(href= url_for(value.path))=  titlecase(pageTitle) || _p('page_title')
+				.post-group-item-tag-category
+					if (value.tags && value.tags.length)
+						include post-tags
+					if (value.categories && value.categories.length)
+						include post-categories
+<div id="pagination-wrapper"><div id="pagination"><span class="page-number current">1</span></div></div>footer#page-footer
+	#footer-wrapper
+		-var currentYear = date(Date.now(), 'YYYY')
+		if theme.inception && theme.inception != currentYear
+			#blog-meta!= '&copy;' + theme.inception + '-' + currentYear + ' By ' + config.author + ' | ' + _p('theme_info') + ' | ' + _p('power_by', theme.hexo_link)			
+		else
+			#blog-meta!= '&copy;' + currentYear + ' By ' + config.author + ' | ' + _p('theme_info') + ' | ' + _p('power_by', theme.hexo_link)
+		if theme.busuanzi_on
+			include ../analysis/busuanzi.pug
+
+		if theme.copyright_on
+			#copyright-wrapper
+				| #[i.fa.fa-cc(aria-hidden="true")]
+				#copyright!= _p('copyright_statement', theme.copyright.liscense_link, theme.copyright.liscense_type)
+		//- footer最后一行的icon
+		#contact-me
+			#rss
+				a(href= url_for('/atom.xml'), type="application/atom+xml", rel="alternate",  target="_blank"): i.fa.fa-rss(aria-hidden="true")
+			
+			if (theme.email_address)
+				#email
+					a(href= 'mailto:' + theme.email_address + '?Subject=blog'): i.fa.fa-envelope(aria-hidden="true")
+
+			for val, key in theme.social_media			
+				if (theme.social_media[key].address)
+					span(id= theme.social_media[key].name)
+						a(href= theme.social_media[key].address)
+							i(class="fa " + theme.social_media[key].icon, aria-hidden="true")
+		
+
+					
+	
+<script src="/compass/js/blog.js"></script></div></body>
