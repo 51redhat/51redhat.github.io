@@ -1,121 +1,228 @@
-<!DOCTYPE html>head
-	meta(charset="utf-8")
-	meta(http-equiv="X-UA-Compatible" content="IE=edge, chrome=1")
-	meta(name="viewport" content="width=device-width, initial-scale=1")
-	-
-		var pageDescription = page.title || config.description || '';
-		if (page.tags && page.tags.length) {
-			var tagsString = page.tags.map(function(val) {return val.name}).join(',');
-		}
-		var pageKeywords = page.keywords || tagsString || '';
-	meta(name="description" content= pageDescription)
-	meta(name="author" content= config.author)
-	meta(name="keywords" content= pageKeywords)
-	meta(name="copyright" content= _p('copyright.liscense_type'))
-	//- 确定页面title栏的内容
-	title
-		if is_post()
-			| #{titlecase(page.title)}
-		if is_archive()
-			| Archives
-		if is_tag()
-			| Tags
-		if is_category()
-			| Categories
-		if is_home()
-			| #{titlecase(config.title)}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
 
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-	<!--[if lt IE 9]>
-		script(src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js")
-		script(src="https://cdn.bootcss.com/respond/1.4.2/respond.min.js")
-	<![endif]-->
-	//- 设置网址的图标，有hexo的helper可以实现
-	link(rel="icon" href= theme.favicon)
-	link(rel='stylesheet' href="/compass/stylesheets/font-awesome.min.css")
-	
-	//- 判断是否使用Algolia Search
-	if theme.algolia_on
-		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.0.0/dist/instantsearch.min.css">
-	//- 用来传给脚本主题配置文件里头的值
-	include from-config.pug	
+  
+  <title>红帽书生blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="红帽书生blog">
+<meta property="og:url" content="http://51redhat.github.io/index.html">
+<meta property="og:site_name" content="红帽书生blog">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="红帽书生blog">
+  
+    <link rel="alternate" href="/atom.xml" title="红帽书生blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
 
-	//- 导入自定义的样式表
-	link(rel="stylesheet" href="/compass/stylesheets/screen.css")
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">红帽书生blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Welcome to my redhat8.com</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://51redhat.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/09/hello-world/" class="article-date">
+  <time datetime="2018-03-08T17:53:22.073Z" itemprop="datePublished">2018-03-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/09/hello-world/">Hello World</a>
+    </h1>
+  
 
-<body><div id="body-inner-wrapper">header#page-header
-	//- include nav.pug
-	| !{partial('includes/nav', null, {cache: true})}
-	//- banner-wrapper来放背景图片
-	#banner-wrapper
-		//- banner-pagetype-dependent-info 垂直居中，水平左40%显示
-		#banner-pagetype-dependent-info
-			//- 所有页面的大标题，都用#post-title表示
-			if is_post()
-				//- 博文标题，创建时间
-				- var pageTitle = page.title.length > 40 ? page.title.slice(0, 40) + '...' : page.title
-				h1#post-title= titlecase(pageTitle) || _p('page_title')
-				span#post-description #[i.fa.fa-calendar(aria-hidden="true")] #{page.date.format(config.date_format)}
-				//- 博文字数&时间
-				include ../analysis/countWordsAndTime.pug
-				span#word-count= _p('word_count', sum)
-				span#time-count= _p('time_count', time)
-			else if is_tag()
-				h1#post-title= (page.tag !== 'tagsHomePage' ? page.tag : _p('header_tag'))
-			else if is_category()
-				h1#post-title= (page.category!== 'categoriesHomePage' ? page.category : _p('header_category'))
-			else if is_archive()
-				if (page.year)
-					h1#post-title= page.year + (page.month ? _p('year') + page.month + _p('month') : "")
-				else
-					h1#post-title= _p('header_archive')
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 
-			else
-				//- 即home page的情况：博客名字，博客描述
-				h1#post-title= titlecase(config.title)
-				span#post-description= titlecase(config.description)
-	
-	//- 以下是博文里头的3个可点击的icon btn
-	//- to-Top btn
-	a(title= _p('toTop_tooltip')): i#to-Top.fa.fa-arrow-up(aria-hidden="true")
-	if is_post()
-		//- toggle-on btn
-		a(title= _p('toggle_on_tooltip')): i#toggle-on-Toc.fa.fa-toggle-on(aria-hidden="true")
-		//- toggle-off btn
-		a(title= _p('toggle_off_tooltip')): i#toggle-off-Toc.fa.fa-toggle-off(aria-hidden="true")
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://51redhat.github.io/2018/03/09/hello-world/" data-id="cjen36c6g00004g7805ujf58n" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
 
-	
-	
-<article class="each-post"><div class="each-post-meta"><span class="each-post-title"><a href="/2018/03/09/hello-world/">Hello World</a></span><span class="each-post-date"> <i class="fa fa-calendar" aria-hidden="true"></i> 2018-03-09</span></div><div class="each-post-excerpt">No Excerpt Available for This Post.</div><div><a class="read-more" href="/2018/03/09/hello-world/">Read More</a></div></article><article class="each-post"><div class="each-post-meta"><span class="each-post-title"><a href="/2013/07/13/安装喜欢的主题/">Hello World</a></span><span class="each-post-date"> <i class="fa fa-calendar" aria-hidden="true"></i> 2013-07-13</span></div><div class="each-post-excerpt">No Excerpt Available for This Post.</div><div><a class="read-more" href="/2013/07/13/安装喜欢的主题/">Read More</a></div></article><div id="pagination-wrapper"><div id="pagination"><span class="page-number current">1</span></div></div>footer#page-footer
-	#footer-wrapper
-		-var currentYear = date(Date.now(), 'YYYY')
-		if theme.inception && theme.inception != currentYear
-			#blog-meta!= '&copy;' + theme.inception + '-' + currentYear + ' By ' + config.author + ' | ' + _p('theme_info') + ' | ' + _p('power_by', theme.hexo_link)			
-		else
-			#blog-meta!= '&copy;' + currentYear + ' By ' + config.author + ' | ' + _p('theme_info') + ' | ' + _p('power_by', theme.hexo_link)
-		if theme.busuanzi_on
-			include ../analysis/busuanzi.pug
 
-		if theme.copyright_on
-			#copyright-wrapper
-				| #[i.fa.fa-cc(aria-hidden="true")]
-				#copyright!= _p('copyright_statement', theme.copyright.liscense_link, theme.copyright.liscense_type)
-		//- footer最后一行的icon
-		#contact-me
-			#rss
-				a(href= url_for('/atom.xml'), type="application/atom+xml", rel="alternate",  target="_blank"): i.fa.fa-rss(aria-hidden="true")
-			
-			if (theme.email_address)
-				#email
-					a(href= 'mailto:' + theme.email_address + '?Subject=blog'): i.fa.fa-envelope(aria-hidden="true")
+  
+    <article id="post-安装喜欢的主题" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/07/13/安装喜欢的主题/" class="article-date">
+  <time datetime="2013-07-13T12:46:25.000Z" itemprop="datePublished">2013-07-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/07/13/安装喜欢的主题/">Hello World</a>
+    </h1>
+  
 
-			for val, key in theme.social_media			
-				if (theme.social_media[key].address)
-					span(id= theme.social_media[key].name)
-						a(href= theme.social_media[key].address)
-							i(class="fa " + theme.social_media[key].icon, aria-hidden="true")
-		
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="主题安装"><a href="#主题安装" class="headerlink" title="主题安装"></a><strong>主题安装</strong></h1><h2 id="安装喜欢的主题"><a href="#安装喜欢的主题" class="headerlink" title="安装喜欢的主题"></a>安装喜欢的主题</h2><h2 id="转Hexo的一个原因也是喜欢”maupassant”这个主题，简洁大气，更多的自己去官网看。"><a href="#转Hexo的一个原因也是喜欢”maupassant”这个主题，简洁大气，更多的自己去官网看。" class="headerlink" title="转Hexo的一个原因也是喜欢”maupassant”这个主题，简洁大气，更多的自己去官网看。"></a>转Hexo的一个原因也是喜欢”maupassant”这个主题，简洁大气，更多的自己去官网看。</h2><h2 id="转Hexo的一个原因也是喜欢”maupassant”这个主题，简洁大气，更多的自己去官网看。-1"><a href="#转Hexo的一个原因也是喜欢”maupassant”这个主题，简洁大气，更多的自己去官网看。-1" class="headerlink" title="转Hexo的一个原因也是喜欢”maupassant”这个主题，简洁大气，更多的自己去官网看。"></a>转Hexo的一个原因也是喜欢”maupassant”这个主题，简洁大气，更多的自己去官网看。</h2><h2 id="git-clone-https-github-com-tufu9441-maupassant-hexo-git-themes-maupassant"><a href="#git-clone-https-github-com-tufu9441-maupassant-hexo-git-themes-maupassant" class="headerlink" title="$ git clone https://github.com/tufu9441/maupassant-hexo.git themes/maupassant"></a>$ git clone <a href="https://github.com/tufu9441/maupassant-hexo.git" target="_blank" rel="noopener">https://github.com/tufu9441/maupassant-hexo.git</a> themes/maupassant</h2><h2 id="git-clone-https-github-com-shenliyang-hexo-theme-snippet-git-themes-maupassant"><a href="#git-clone-https-github-com-shenliyang-hexo-theme-snippet-git-themes-maupassant" class="headerlink" title="$ git clone https://github.com/shenliyang/hexo-theme-snippet.git themes/maupassant"></a>$ git clone <a href="https://github.com/shenliyang/hexo-theme-snippet.git" target="_blank" rel="noopener">https://github.com/shenliyang/hexo-theme-snippet.git</a> themes/maupassant</h2><h2 id="Extensions"><a href="#Extensions" class="headerlink" title="Extensions"></a>Extensions</h2><h2 id="Plugins-https-hexo-io-plugins"><a href="#Plugins-https-hexo-io-plugins" class="headerlink" title="Plugins: https://hexo.io/plugins/"></a>Plugins: <a href="https://hexo.io/plugins/" target="_blank" rel="noopener">https://hexo.io/plugins/</a></h2><h2 id="Themes-https-hexo-io-themes"><a href="#Themes-https-hexo-io-themes" class="headerlink" title="Themes: https://hexo.io/themes/"></a>Themes: <a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a></h2><h2 id="theme-maupassant"><a href="#theme-maupassant" class="headerlink" title="theme: maupassant"></a>theme: maupassant</h2><p>自己用的主题叫什么就改成什么</p>
 
-					
-	
-<script src="/compass/js/blog.js"></script></div></body>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://51redhat.github.io/2013/07/13/安装喜欢的主题/" data-id="cjen36c6s00014g78bo7odak5" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/07/">July 2013</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/03/09/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2013/07/13/安装喜欢的主题/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 红帽书生<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
