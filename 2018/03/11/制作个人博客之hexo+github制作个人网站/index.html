@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  
+  <title>制作个人博客之hexo+github制作个人网站 - 红帽书生blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  
+  <meta name="keywords" content=生活,博客,前端,游戏>
+  
+  
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.02">
+  
+  
+    <link rel="alternate" href="/atom.xml " title="红帽书生blog" type="application/atom+xml">
+  
+
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class="container">
+      <header class="header">
+  <div class="blog-title">
+    <a href="/" class="logo">红帽书生blog</a>
+    <div class="subtitle">Welcome to my redhat8.com</div>
+  </div>
+  <nav class="navbar">
+    <ul class="menu">
+      
+        <li class="menu-item">
+          <a href="/" class="menu-item-link">首页</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/archives" class="menu-item-link">运维</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/about" class="menu-item-link">虚拟化</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/about" class="menu-item-link">硬件系统</a>
+        </li>
+      
+    </ul>
+  </nav>
+</header>
+<article class="post">
+  <div class="post-title">
+    <h1 class="article-title">制作个人博客之hexo+github制作个人网站</h1>
+  </div>
+   <div class="post-meta">
+    <span class="post-time">2018-03-11</span>
+  </div>
+  <div class="post-content">
+    <h1 id="Hexo博客部署方案"><a href="#Hexo博客部署方案" class="headerlink" title="==Hexo博客部署方案=="></a><strong>==Hexo博客部署方案==</strong></h1><h2 id="写文档的电脑要用到的工具"><a href="#写文档的电脑要用到的工具" class="headerlink" title="写文档的电脑要用到的工具"></a><strong>写文档的电脑要用到的工具</strong></h2><h2 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h2><p>Hexo基于Node.js写的，需要提供Hexo依赖环境</p>
+<h2 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h2><p>Git客户端，将静态页提交到GitHub等仓库托管服务商</p>
+<h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><p>-Hexo d命令也用到git命令，能自动提交到对应的仓库</p>
+<h2 id="MarkDown编辑器"><a href="#MarkDown编辑器" class="headerlink" title="MarkDown编辑器"></a>MarkDown编辑器</h2><p>MarkDown解析编译成静态页<br>更好更快地写MarkDown格式文档，不屑的直接用notepad或其他代notepad编辑器也行<br>如果是编辑单个文档，这里给安利个开源，免费，跨平台，简洁，高颜值编辑器:Moeditor或者Typora，你值得拥有<br>如果是整站管理Hexo文章，那就用GitHub出的Atom吧，原生支持MarkDown，集成Git显色状态</p>
+<h2 id="Git客户端"><a href="#Git客户端" class="headerlink" title="Git客户端"></a>Git客户端</h2><p>可以安装Git Windows <a href="https://git-scm.com/download/win或者索性GitHub" target="_blank" rel="noopener">https://git-scm.com/download/win或者索性GitHub</a> Desktop，完全可视化，简单。<br>安装完成后，登录自己的账户，配置Git根目录。</p>
+<h2 id="Node-js-1"><a href="#Node-js-1" class="headerlink" title="Node.js"></a>Node.js</h2><p>从Node.js网站<a href="https://nodejs.org/en/download/上下载安装包，一路默认下来就行，记得勾选自动配置Path，省得以后麻烦。" target="_blank" rel="noopener">https://nodejs.org/en/download/上下载安装包，一路默认下来就行，记得勾选自动配置Path，省得以后麻烦。</a></p>
+<h2 id="Hexo-1"><a href="#Hexo-1" class="headerlink" title="Hexo"></a>Hexo</h2><p>安装好Node.js和Git，就可以使用npm命令安装Hexo了</p>
+<h2 id="hexo安装博客的核心步骤"><a href="#hexo安装博客的核心步骤" class="headerlink" title="hexo安装博客的核心步骤"></a><strong>hexo安装博客的核心步骤</strong></h2><p><img src="http://img1.ph.126.net/pQjfr2Chy-Ll3Mjnz-yuvw==/6597306161658556336.png" alt="image"></p>
+<p>npm介绍可见:npm模块安装机制简介<br>启动Git Shell或者’CMD’等终端，切换到Git根目录，开始安装Hexo。</p>
+<blockquote>
+<p>提示：git和node最好安装在同一分区路径，安装步骤：反正下载好msi文件后，双击打开安装，也是一路next，不过在Custom Setup这一步记得选 Add to PATH ,这样你就不用自己去配置电脑上环境变量了，装完在按 win + r 快捷键调出运行，然后输入cmd确定，在cmd中输入path可以看到你的node是否配置在里面（环境变量），没有的话你就自由发挥吧。</p>
+</blockquote>
+<ul>
+<li style="list-style: none"><input type="checkbox"> $ npm install hexo-cli -g </li>
+</ul>
+<p>全局安装Hexo客户端安装完成后，创建个myHexo目录，并初始化Hexo项目</p>
+<ul>
+<li style="list-style: none"><input type="checkbox"> $ Hexo init myHexo</li>
+</ul>
+<p>这个<code>myHexo</code>目录就是Hexo博客的工作目录了，以后<br>启动Hexo命令都要先切到这个目录下</p>
+<ul>
+<li style="list-style: none"><input type="checkbox"> $ cd myHexo</li>
+<li style="list-style: none"><input type="checkbox"> $ npm install  </li>
+</ul>
+<p>这个命令会把需要的依赖环境都自动装上</p>
+<blockquote>
+<p>Npm install安装不上或安装缓慢，可以用smart-npm安装或cnpm，加上+淘宝NPM镜像的方法来安装</p>
+</blockquote>
+<blockquote>
+<p>npm install –global smart-npm –registry=<a href="https://registry.npm.taobao.org/" target="_blank" rel="noopener">https://registry.npm.taobao.org/</a></p>
+</blockquote>
+<blockquote>
+<p>npm install cnpm –g –registry=<a href="https://registry.npm.taobao.org" target="_blank" rel="noopener">https://registry.npm.taobao.org</a></p>
+</blockquote>
+<p>Hexo从 3.0 开始把服务器独立成了个别模块，所以要本地调试的话，还需要安装 hexo-server 才能使用</p>
+<p>$ npm install hexo-server –save<br><img src="http://img1.ph.126.net/TBIXt11CuynlwX_yk5zUhQ==/6597999953495792647.png" alt="image"></p>
+<p><img src="http://img0.ph.126.net/srxlTs4l0HfcncM80j57cQ==/6597875708681854446.png" alt="image"></p>
+<p>安装完成后，输入hexo server或简写hexo s命令以启动服务器，默认网站会在 <a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a> 下启动。也可以指定端口如hexo s -p 80，这样浏览器里只需要输入localhost就能访问本地调试内容了。<br>在服务器启动期间，Hexo 会监视文件变动并自动更新，无须重启服务。</p>
+<p><img src="http://img2.ph.126.net/P0DivtY547LvMVO1LuZuIg==/6597356739193816577.png" alt="image"></p>
+<p>客户端初始化完成后，在myHexo目录下应该有一堆文件了，目录结构应该这个样子的:</p>
+<p><img src="http://img2.ph.126.net/zZGsx6mHY_bpS4eKSKiA6A==/1443685155649327697.png" alt="image"><br>解释一下：</p>
+<ul>
+<li style="list-style: none"><input type="checkbox"> node_modules：是依赖包</li>
+<li style="list-style: none"><input type="checkbox"> public：存放的是生成的页面</li>
+<li style="list-style: none"><input type="checkbox"> scaffolds：命令生成文章等的模板</li>
+<li style="list-style: none"><input type="checkbox"> source：用命令创建的各种文章</li>
+<li style="list-style: none"><input type="checkbox"> themes：主题</li>
+<li style="list-style: none"><input type="checkbox"> _config.yml：整个博客的配置</li>
+<li style="list-style: none"><input type="checkbox"> db.json：source解析所得到的</li>
+<li style="list-style: none"><input type="checkbox"> package.json：项目所需模块项目的配置信息</li>
+</ul>
+<p>在博客github中设置公钥加密Public，以保证数据传输安全</p>
+<p><img src="http://img2.ph.126.net/QBr6kMqO6XLliwR9fcgm1A==/1444529580579459650.png" alt="image"></p>
+<h2 id="回到gitbash中，配置github账户信息"><a href="#回到gitbash中，配置github账户信息" class="headerlink" title="回到gitbash中，配置github账户信息"></a>回到gitbash中，配置github账户信息</h2><p>（YourName-“51redhat”和YourEail-“<a href="mailto:2105694954@qq.com" target="_blank" rel="noopener">2105694954@qq.com</a>”都替换成你自己的）</p>
+<p><img src="http://opif0c56u.bkt.clouddn.com/username.png" alt="image"><br><img src="http://opif0c56u.bkt.clouddn.com/email.png" alt="image"></p>
+<h2 id="创建SSH"><a href="#创建SSH" class="headerlink" title="创建SSH"></a>创建SSH</h2><p>在gitbash中输入：<br>ssh-keygen -t rsa -C “<a href="mailto:youremail@example.com" target="_blank" rel="noopener">youremail@example.com</a>(<a href="mailto:2105694954@qq.com" target="_blank" rel="noopener">2105694954@qq.com</a>)，生成ssh。然后按下图的方式找到id_rsa.pub文件的内容。</p>
+<p><img src="http://opif0c56u.bkt.clouddn.com/ssh.png" alt="image"></p>
+<p>将上面获取的ssh密钥全部内容复制放到github中的public中</p>
+<p><img src="http://opif0c56u.bkt.clouddn.com/settings.png" alt="image"></p>
+<p><img src="http://opif0c56u.bkt.clouddn.com/ssh-key.png" alt="image"></p>
+<p>添加一个 New SSH key ，title随便取，key就填刚刚那一段。在gitbash中验证是否添加成功：ssh -T <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a><br>（就是这个邮件地址不要改）完成下一步你就成功啦！</p>
+<h2 id="配置config-yml脚本参数"><a href="#配置config-yml脚本参数" class="headerlink" title="配置config.yml脚本参数"></a>配置config.yml脚本参数</h2><p>用编辑器打开你的blog项目，修改_config.yml文件的一些配置(冒号之后都是有一个半角空格的)</p>
+<ul>
+<li>deploy:</li>
+<li>type: git</li>
+<li>repository:ssh:<a href="mailto://git@github.com" target="_blank" rel="noopener">//git@github.com</a>/51redhat/51redhat.github.io</li>
+<li>branch: master(“master”写不写都行)</li>
+<li>url: <a href="http://51redhat.github.io/">http://51redhat.github.io/</a></li>
+</ul>
+<h2 id="回到gitbash中，进入你的blog目录，分别执行以下命令："><a href="#回到gitbash中，进入你的blog目录，分别执行以下命令：" class="headerlink" title="回到gitbash中，进入你的blog目录，分别执行以下命令："></a>回到gitbash中，进入你的blog目录，分别执行以下命令：</h2><ul>
+<li style="list-style: none"><input type="checkbox"> hexo c clean      清除缓存文件 db.json 和已生成的静态文public</li>
+<li style="list-style: none"><input type="checkbox"> hexo g generate   生成网站静态文件到默认设置的 public 文件夹</li>
+<li style="list-style: none"><input type="checkbox"> hexo s server     启动本地服务器，用于预览主题。默认地址： <a href="http://localhost:4000/" target="_blank" rel="noopener">http://localhost:4000/</a></li>
+<li style="list-style: none"><input type="checkbox"> hexo d deploy     自动生成网站静态文件，并部署到设定的仓库</li>
+<li style="list-style: none"><input type="checkbox"> hexo n new        hexo new “学习笔记  六”  新建一篇标题为 学习笔记 六 的文章，因为标题里有空格，所以加上了引号</li>
+<li style="list-style: none"><input type="checkbox"> hexo new page     hexo new page aboutme   新建一个标题为 aboutme 的页面，默认链接地址为 主页地址/aboutme/</li>
+</ul>
+<blockquote>
+<p>注：hexo 3.0把服务器独立成个别模块，需要单独安装：npm i hexo-server。</p>
+<ul>
+<li style="list-style: none"><input type="checkbox"> 打开浏览器输入：<a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a></li>
+<li style="list-style: none"><input type="checkbox"> 接着你就可以遇见天使的微笑了~</li>
+</ul>
+</blockquote>
+<h2 id="上传到github"><a href="#上传到github" class="headerlink" title="上传到github"></a>上传到github</h2><ul>
+<li style="list-style: none"><input type="checkbox"> 先安装一波：npm install hexo-deployer-git –save<blockquote>
+<p> （这样才能将你写好的文章部署到github服务器上并让别人浏览到）</p>
+</blockquote>
+</li>
+<li style="list-style: none"><input type="checkbox"> 执行命令(建议每次都按照如下步骤部署)：</li>
+<li style="list-style: none"><input type="checkbox"> hexo clean</li>
+<li style="list-style: none"><input type="checkbox"> hexo generate</li>
+<li style="list-style: none"><input type="checkbox"> hexo deploy</li>
+</ul>
+<p>注意deploy的过程中要输入你的username及passward。如下</p>
+<p><img src="http://opif0c56u.bkt.clouddn.com/deploy.png" alt="image"></p>
+<p><img src="http://img2.ph.126.net/IcgxBm6021orWnEpD4xeOw==/6597949375960914101.png" alt="image"></p>
+<p>hexo d上传完成的输出结果</p>
+<p><img src="http://img1.ph.126.net/GX1DQNIhGNlroC7DS468Ww==/6631562545935396715.png" alt="image"></p>
+<p>hexo 上传的文件public</p>
+<p><img src="http://img2.ph.126.net/2Tbuzw3y44VdoI42BRE49g==/6597545855193513608.png" alt="image"></p>
+<p>hexo 上传到github的文件</p>
+<p><strong>注意别忘了添加CNAME别名记录。</strong><br>在浏览器中输入<a href="http://www.redhat8.com就可以看到你的个人博客啦，是不是很兴奋！" target="_blank" rel="noopener">www.redhat8.com就可以看到你的个人博客啦，是不是很兴奋！</a><br>感觉gitbash中东西太多的时候输入clear命令清空。</p>
+
+  </div>
+  <div class="post-footer">
+    
+
+    <a href="#top" class="top">Back to Top</a>
+  </div>
+</article>
+<footer>
+  &copy; 2018
+  <span class="author">
+    红帽书生
+  </span>
+</footer>
+    </div>
+  </body>
+</html>
